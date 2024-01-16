@@ -88,19 +88,35 @@ echo ""
 # =================
 
 
-
-
-
-stable_diffusion_commit_hash=$(cat ${DEPS_FILE} | grep ".get('STABLE_DIFFUSION_COMMIT_HASH'" | grep -oP "(?<=\").*(?=\")")
-echo $stable_diffusion_commit_hash
-
 # stable_diffusion_xl_repo
-echo "get stable_diffusion_xl_repo info"
-info=$(cat ${DEPS_FILE} | grep ".get('STABLE_DIFFUSION_XL_REPO'" | grep -oP "(?<=\").*(?=\")")
-echo $info
-
+# =================
+echo "[GET Info] stable_diffusion_xl_repo"
+stable_diffusion_info=$(cat ${DEPS_FILE} | grep ".get('STABLE_DIFFUSION_XL_REPO'" | grep -oP "(?<=\").*(?=\")")
+echo $stable_diffusion_info
+if [[ "${stable_diffusion_info}" != "${STABLE_DIFFUSION_XL_REPO}" ]]; then
+    echo "stable_diffusion_info is not equal to STABLE_DIFFUSION_XL_REPO, need upgrade."
+    echo "please report this issue to https://github.com/soulteary/docker-stable-diffusion-webui/"
+    exit 1
+fi
 stable_diffusion_xl_commit_hash=$(cat ${DEPS_FILE} | grep ".get('STABLE_DIFFUSION_XL_COMMIT_HASH'" | grep -oP "(?<=\").*(?=\")")
-echo $stable_diffusion_xl_commit_hash
+if [[ "${stable_diffusion_xl_commit_hash}" != "${STABLE_DIFFUSION_XL_COMMIT_HASH}" ]]; then
+    echo "stable_diffusion_info is not equal to STABLE_DIFFUSION_XL_COMMIT_HASH, need upgrade."
+    echo "please report this issue to https://github.com/soulteary/docker-stable-diffusion-webui/"
+    exit 1
+fi
+if [[ -d "${PACKAGES_DIR}/generative-models" ]]; then
+    echo "stable_diffusion_xl_repo is already exist, skip clone."
+else
+    git clone "${STABLE_DIFFUSION_XL_REPO}" "${PACKAGES_DIR}/generative-models"
+fi
+cd "${PACKAGES_DIR}/generative-models"
+git checkout "${stable_diffusion_xl_commit_hash}"
+cd "../../"
+echo ""
+# =================
+
+
+
 
 
 
