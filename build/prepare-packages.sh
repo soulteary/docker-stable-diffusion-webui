@@ -3,6 +3,14 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 source "${SCRIPT_DIR}/common.sh"
 
+if [[ -f "$DEPS_FILE" ]]; then
+    echo "analyze $DEPS_FILE, prepare packages."
+else
+    echo "no $DEPS_FILE, please run build/get-origin-deps.sh first."
+    exit 1
+fi
+
+
 PACKAGES_DIR="./packages"
 mkdir -p "${PACKAGES_DIR}"
 
