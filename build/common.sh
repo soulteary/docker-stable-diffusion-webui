@@ -18,7 +18,7 @@ STABLE_DIFFUSION_COMMIT_HASH="cf1d67a6fd5ea1aa600c4df58e5b47da45f6bdbf"
 STABLE_DIFFUSION_XL_REPO="https://github.com/Stability-AI/generative-models.git"
 STABLE_DIFFUSION_XL_COMMIT_HASH="45c443b316737a4ab6e40413d7794a7f5657c19f"
 
-K_DIFFUSION_REPO=https://github.com/crowsonkb/k-diffusion.git
+K_DIFFUSION_REPO="https://github.com/crowsonkb/k-diffusion.git"
 K_DIFFUSION_COMMIT_HASH="ab527a9a6d347f364e3d185ba6d714e22d80cb3c"
 
 CODEFORMER_REP="https://github.com/sczhou/CodeFormer.git"

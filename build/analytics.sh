@@ -91,16 +91,16 @@ echo ""
 # stable_diffusion_xl_repo
 # =================
 echo "[GET Info] stable_diffusion_xl_repo"
-stable_diffusion_info=$(cat ${DEPS_FILE} | grep ".get('STABLE_DIFFUSION_XL_REPO'" | grep -oP "(?<=\").*(?=\")")
-echo $stable_diffusion_info
-if [[ "${stable_diffusion_info}" != "${STABLE_DIFFUSION_XL_REPO}" ]]; then
-    echo "stable_diffusion_info is not equal to STABLE_DIFFUSION_XL_REPO, need upgrade."
+stable_diffusion_xl_info=$(cat ${DEPS_FILE} | grep ".get('STABLE_DIFFUSION_XL_REPO'" | grep -oP "(?<=\").*(?=\")")
+echo $stable_diffusion_xl_info
+if [[ "${stable_diffusion_xl_info}" != "${STABLE_DIFFUSION_XL_REPO}" ]]; then
+    echo "stable_diffusion_xl_info is not equal to STABLE_DIFFUSION_XL_REPO, need upgrade."
     echo "please report this issue to https://github.com/soulteary/docker-stable-diffusion-webui/"
     exit 1
 fi
 stable_diffusion_xl_commit_hash=$(cat ${DEPS_FILE} | grep ".get('STABLE_DIFFUSION_XL_COMMIT_HASH'" | grep -oP "(?<=\").*(?=\")")
 if [[ "${stable_diffusion_xl_commit_hash}" != "${STABLE_DIFFUSION_XL_COMMIT_HASH}" ]]; then
-    echo "stable_diffusion_info is not equal to STABLE_DIFFUSION_XL_COMMIT_HASH, need upgrade."
+    echo "stable_diffusion_xl_info is not equal to STABLE_DIFFUSION_XL_COMMIT_HASH, need upgrade."
     echo "please report this issue to https://github.com/soulteary/docker-stable-diffusion-webui/"
     exit 1
 fi
@@ -116,19 +116,35 @@ echo ""
 # =================
 
 
-
-
-
-
-
 # k_diffusion_repo
-echo "get k_diffusion_repo info"
-info=$(cat ${DEPS_FILE} | grep ".get('K_DIFFUSION_REPO'" | grep -oP "(?<=')[^']+(?=')")
-echo $info
+# =================
+echo "[GET Info] k_diffusion_repo"
+k_diffusion_info=$(cat ${DEPS_FILE} | grep ".get('K_DIFFUSION_REPO'" | grep -oP "(?<=\').*(?=\')" | awk -F "', '" '{print $2}')
 
-
+echo $k_diffusion_info
+echo $K_DIFFUSION_REPO
+if [[ "${k_diffusion_info}" != "${K_DIFFUSION_REPO}" ]]; then
+    echo "k_diffusion_info is not equal to K_DIFFUSION_REPO, need upgrade."
+    echo "please report this issue to https://github.com/soulteary/docker-stable-diffusion-webui/"
+    exit 1
+fi
 k_diffusion_commit_hash=$(cat ${DEPS_FILE} | grep ".get('K_DIFFUSION_COMMIT_HASH'" | grep -oP "(?<=\").*(?=\")")
-echo $k_diffusion_commit_hash
+if [[ "${k_diffusion_commit_hash}" != "${K_DIFFUSION_COMMIT_HASH}" ]]; then
+    echo "k_diffusion_info is not equal to K_DIFFUSION_COMMIT_HASH, need upgrade."
+    echo "please report this issue to https://github.com/soulteary/docker-stable-diffusion-webui/"
+    exit 1
+fi
+if [[ -d "${PACKAGES_DIR}/k-diffusion" ]]; then
+    echo "k_diffusion_repo is already exist, skip clone."
+else
+    git clone "${K_DIFFUSION_REPO}" "${PACKAGES_DIR}/k-diffusion"
+fi
+cd "${PACKAGES_DIR}/k-diffusion"
+git checkout "${k_diffusion_commit_hash}"
+cd "../../"
+echo ""
+# =================
+
 
 
 
