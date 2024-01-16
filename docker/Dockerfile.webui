@@ -32,3 +32,7 @@ RUN if [ "$USE_CHINA_MIRROR" = "true" ]; then \
         pip install tb-nightly; \
     fi
 RUN pip install basicsr gfpgan realesrgan
+
+# install stable-diffusion-webui deps
+RUN pip install lpips pydantic==1.10.11
+RUN pip install $(cat packages/stable-diffusion-webui/requirements.txt | sort | uniq | grep "\S" | grep -v basicsr | grep -v gfpgan | grep -v realesrgan)
