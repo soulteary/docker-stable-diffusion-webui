@@ -41,4 +41,5 @@ RUN pip install $(cat packages/stable-diffusion-webui/requirements.txt | sort | 
 WORKDIR /opt
 COPY ./build/prepare-sdwebui-components.sh ./prepare-sdwebui-components.sh
 RUN bash prepare-sdwebui-components.sh && rm -rf prepare-sdwebui-components.sh
+WORKDIR /opt/stable-diffusion-webui
 CMD ["python", "launch.py", "--server-name", "0.0.0.0"]
