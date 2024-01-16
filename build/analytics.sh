@@ -25,10 +25,10 @@ if [[ -d "${PACKAGES_DIR}/clip" ]]; then
     echo "clip_package is already exist, skip clone."
 else
     git clone "${CLIP_GITHUB}" "${PACKAGES_DIR}/clip"
+    cd "${PACKAGES_DIR}/clip"
+    git checkout "${clip_commit_hash}"
+    cd "../../"
 fi
-cd "${PACKAGES_DIR}/clip"
-git checkout "${clip_commit_hash}"
-cd "../../"
 echo ""
 # =================
 
@@ -52,10 +52,10 @@ if [[ -d "${PACKAGES_DIR}/open_clip" ]]; then
     echo "openclip_package is already exist, skip clone."
 else
     git clone "${OPENCLIP_GITHUB}" "${PACKAGES_DIR}/open_clip"
+    cd "${PACKAGES_DIR}/open_clip"
+    git checkout "${openclip_commit_hash}"
+    cd "../../"
 fi
-cd "${PACKAGES_DIR}/open_clip"
-git checkout "${openclip_commit_hash}"
-cd "../../"
 echo ""
 # =================
 
@@ -80,10 +80,10 @@ if [[ -d "${PACKAGES_DIR}/stablediffusion" ]]; then
     echo "stable_diffusion_repo is already exist, skip clone."
 else
     git clone "${STABLE_DIFFUSION_REPO}" "${PACKAGES_DIR}/stablediffusion"
+    cd "${PACKAGES_DIR}/stablediffusion"
+    git checkout "${stable_diffusion_commit_hash}"
+    cd "../../"
 fi
-cd "${PACKAGES_DIR}/stablediffusion"
-git checkout "${stable_diffusion_commit_hash}"
-cd "../../"
 echo ""
 # =================
 
@@ -108,10 +108,10 @@ if [[ -d "${PACKAGES_DIR}/generative-models" ]]; then
     echo "stable_diffusion_xl_repo is already exist, skip clone."
 else
     git clone "${STABLE_DIFFUSION_XL_REPO}" "${PACKAGES_DIR}/generative-models"
+    cd "${PACKAGES_DIR}/generative-models"
+    git checkout "${stable_diffusion_xl_commit_hash}"
+    cd "../../"
 fi
-cd "${PACKAGES_DIR}/generative-models"
-git checkout "${stable_diffusion_xl_commit_hash}"
-cd "../../"
 echo ""
 # =================
 
@@ -120,9 +120,7 @@ echo ""
 # =================
 echo "[GET Info] k_diffusion_repo"
 k_diffusion_info=$(cat ${DEPS_FILE} | grep ".get('K_DIFFUSION_REPO'" | grep -oP "(?<=\').*(?=\')" | awk -F "', '" '{print $2}')
-
 echo $k_diffusion_info
-echo $K_DIFFUSION_REPO
 if [[ "${k_diffusion_info}" != "${K_DIFFUSION_REPO}" ]]; then
     echo "k_diffusion_info is not equal to K_DIFFUSION_REPO, need upgrade."
     echo "please report this issue to https://github.com/soulteary/docker-stable-diffusion-webui/"
@@ -138,33 +136,50 @@ if [[ -d "${PACKAGES_DIR}/k-diffusion" ]]; then
     echo "k_diffusion_repo is already exist, skip clone."
 else
     git clone "${K_DIFFUSION_REPO}" "${PACKAGES_DIR}/k-diffusion"
+    cd "${PACKAGES_DIR}/k-diffusion"
+    git checkout "${k_diffusion_commit_hash}"
+    cd "../../"
 fi
-cd "${PACKAGES_DIR}/k-diffusion"
-git checkout "${k_diffusion_commit_hash}"
-cd "../../"
+echo ""
+# =================
+
+
+# codeformer_repo
+# =================
+echo "[GET Info] codeformer_repo"
+# codeformer_info=$(cat ${DEPS_FILE} | grep ".get('CODEFORMER_REPO'" | grep -oP "(?<=\').*(?=\')" | awk -F "', '" '{print $2}')
+# use pre-defined CODEFORMER_REPO, with minor bugfix
+# echo $codeformer_info
+# if [[ "${codeformer_info}" != "${CODEFORMER_REPO}" ]]; then
+#     echo "codeformer_info is not equal to CODEFORMER_REPO, need upgrade."
+#     echo "please report this issue to https://github.com/soulteary/docker-stable-diffusion-webui/"
+#     exit 1
+# fi
+# codeformer_commit_hash=$(cat ${DEPS_FILE} | grep ".get('CODEFORMER_COMMIT_HASH'" | grep -oP "(?<=\").*(?=\")")
+# if [[ "${codeformer_commit_hash}" != "${CODEFORMER_COMMIT_HASH}" ]]; then
+#     echo "codeformer_info is not equal to CODEFORMER_COMMIT_HASH, need upgrade."
+#     echo "please report this issue to https://github.com/soulteary/docker-stable-diffusion-webui/"
+#     exit 1
+# fi
+if [[ -d "${PACKAGES_DIR}/CodeFormer" ]]; then
+    echo "codeformer_repo is already exist, skip clone."
+else
+    git clone "${CODEFORMER_REPO}" "${PACKAGES_DIR}/CodeFormer"
+    cd "${PACKAGES_DIR}/CodeFormer"
+    # git checkout "${codeformer_commit_hash}"
+    cd "../../"
+fi
 echo ""
 # =================
 
 
 
+# # blip_repo
+# echo "get blip_repo info"
+# info=$(cat ${DEPS_FILE} | grep ".get('BLIP_REPO'" | grep -oP "(?<=')[^']+(?=')")
+# echo $info
 
 
-# codeformer_repo
-echo "get codeformer_repo info"
-info=$(cat ${DEPS_FILE} | grep ".get('CODEFORMER_REPO'" | grep -oP "(?<=')[^']+(?=')")
-echo $info
-
-
-codeformer_commit_hash=$(cat ${DEPS_FILE} | grep ".get('CODEFORMER_COMMIT_HASH'" | grep -oP "(?<=\").*(?=\")")
-echo $codeformer_commit_hash
-
-
-# blip_repo
-echo "get blip_repo info"
-info=$(cat ${DEPS_FILE} | grep ".get('BLIP_REPO'" | grep -oP "(?<=')[^']+(?=')")
-echo $info
-
-
-blip_commit_hash=$(cat ${DEPS_FILE} | grep ".get('BLIP_COMMIT_HASH'" | grep -oP "(?<=\").*(?=\")")
-echo $blip_commit_hash
+# blip_commit_hash=$(cat ${DEPS_FILE} | grep ".get('BLIP_COMMIT_HASH'" | grep -oP "(?<=\").*(?=\")")
+# echo $blip_commit_hash
 

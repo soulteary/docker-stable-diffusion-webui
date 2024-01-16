@@ -21,7 +21,7 @@ STABLE_DIFFUSION_XL_COMMIT_HASH="45c443b316737a4ab6e40413d7794a7f5657c19f"
 K_DIFFUSION_REPO="https://github.com/crowsonkb/k-diffusion.git"
 K_DIFFUSION_COMMIT_HASH="ab527a9a6d347f364e3d185ba6d714e22d80cb3c"
 
-CODEFORMER_REP="https://github.com/sczhou/CodeFormer.git"
+CODEFORMER_REPO="https://github.com/soulteary/CodeFormer.git"
 CODEFORMER_COMMIT_HASH="c5b4593074ba6214284d6acd5f1719b6c5d739af"
 
 BLIP_REPO="https://github.com/salesforce/BLIP.git"
