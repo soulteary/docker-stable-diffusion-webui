@@ -21,3 +21,12 @@ RUN pip install $(cat packages/clip/requirements.txt packages/open_clip/requirem
     sed -i 's/protobuf==3.20.0//g' packages/open_clip/requirements.txt && \
     pip install packages/clip && \
     pip install packages/open_clip
+
+# install basicr gfpgan realesrgan
+ARG USE_CHINA_MIRROR=false
+RUN if [ "$USE_CHINA_MIRROR" = "true" ]; then \
+        pip install tb-nightly -i https://mirrors.aliyun.com/pypi/simple; \
+    else \
+        pip install tb-nightly; \
+    fi
+RUN pip install basicsr gfpgan realesrgan
