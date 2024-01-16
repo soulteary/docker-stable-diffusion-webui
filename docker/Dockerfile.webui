@@ -15,3 +15,9 @@ RUN if [ "$USE_CHINA_MIRROR" = "true" ]; then \
 # fetch origin deps
 RUN bash build/get-origin-deps.sh && \
     bash build/prepare-packages.sh
+
+# install clip, open_clip deps, remove protobuf old version lock
+RUN pip install $(cat packages/clip/requirements.txt packages/open_clip/requirements.txt packages/k-diffusion/requirements.txt | sort | uniq | grep "\S" | grep -v protobuf | grep -v "torch>=") && \
+    sed -i 's/protobuf==3.20.0//g' packages/open_clip/requirements.txt && \
+    pip install packages/clip && \
+    pip install packages/open_clip
