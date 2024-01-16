@@ -5,9 +5,12 @@ DEPS_FILE="./${TEMP_DIR}/launch_utils.py"
 
 # Sync with upstream repo
 CLIP_PACKAGE="https://github.com/openai/CLIP/archive/d50d76daa670286dd6cacf3bcd80b5e4823fc8e1.zip"
-OPENCLIP_PACKAGE="https://github.com/mlfoundations/open_clip/archive/bb6e834e9c70d9c27d0dc3ecedeebeaeb1ffad6b.zip"
 CLIP_GITHUB="https://github.com/openai/CLIP.git"
 CLIP_COMMIT_HASH="a1d071733d7111c9c014f024669f959182114e33"
+
+OPENCLIP_PACKAGE="https://github.com/mlfoundations/open_clip/archive/bb6e834e9c70d9c27d0dc3ecedeebeaeb1ffad6b.zip"
+OPENCLIP_GITHUB="https://github.com/mlfoundations/open_clip"
+OPENCLIP_COMMIT_HASH="bb6e834e9c70d9c27d0dc3ecedeebeaeb1ffad6b"
 
 STABLE_DIFFUSION_REPO="https://github.com/Stability-AI/stablediffusion.git"
 STABLE_DIFFUSION_COMMIT_HASH="cf1d67a6fd5ea1aa600c4df58e5b47da45f6bdbf"

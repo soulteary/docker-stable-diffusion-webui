@@ -11,13 +11,12 @@ mkdir -p "${PACKAGES_DIR}"
 echo "[GET Info] clip_package"
 clip_package_info=$(cat ${DEPS_FILE} | grep ".get('CLIP_PACKAGE'" | grep -oP "(?<=\").*(?=\")")
 echo $clip_package_info
-clip_commit_hash=$(echo $clip_package_info | grep -oP '(?<=archive/)\w+(?=\.zip)')
-echo $clip_commit_hash
 if [[ "${clip_package_info}" != "${CLIP_PACKAGE}" ]]; then
-    echo "clip_commit_hash is not equal to CLIP_PACKAGE, need upgrade."
+    echo "clip_package_info is not equal to CLIP_PACKAGE, need upgrade."
     echo "please report this issue to https://github.com/soulteary/docker-stable-diffusion-webui/"
     exit 1
 fi
+clip_commit_hash=$(echo $clip_package_info | grep -oP '(?<=archive/)\w+(?=\.zip)')
 if [[ "${CLIP_COMMIT_HASH}" != "" ]]; then
     echo "recommend CLIP_COMMIT_HASH is not empty, use it. ${CLIP_COMMIT_HASH}"
     clip_commit_hash="${CLIP_COMMIT_HASH}"
@@ -36,11 +35,34 @@ echo ""
 
 # openclip_package
 # =================
-echo "get openclip_package info"
-info=$(cat ${DEPS_FILE} | grep ".get('OPENCLIP_PACKAGE'" | grep -oP "(?<=\").*(?=\")")
-echo $info
-openclip_commit_hash=$(echo $info | grep -oP '(?<=archive/)\w+(?=\.zip)')
-echo $openclip_commit_hash
+echo "[GET Info] openclip_package"
+openclip_package_info=$(cat ${DEPS_FILE} | grep ".get('OPENCLIP_PACKAGE'" | grep -oP "(?<=\").*(?=\")")
+echo $openclip_package_info
+if [[ "${openclip_package_info}" != "${OPENCLIP_PACKAGE}" ]]; then
+    echo "openclip_package_info is not equal to OPENCLIP_PACKAGE, need upgrade."
+    echo "please report this issue to https://github.com/soulteary/docker-stable-diffusion-webui/"
+    exit 1
+fi
+openclip_commit_hash=$(echo $openclip_package_info | grep -oP '(?<=archive/)\w+(?=\.zip)')
+if [[ "${OPENCLIP_COMMIT_HASH}" != "" ]]; then
+    echo "recommend OPENCLIP_COMMIT_HASH is not empty, use it. ${OPENCLIP_COMMIT_HASH}"
+    openclip_commit_hash="${OPENCLIP_COMMIT_HASH}"
+fi
+if [[ -d "${PACKAGES_DIR}/open_clip" ]]; then
+    echo "openclip_package is already exist, skip clone."
+else
+    git clone "${OPENCLIP_GITHUB}" "${PACKAGES_DIR}/open_clip"
+fi
+cd "${PACKAGES_DIR}/open_clip"
+git checkout "${openclip_commit_hash}"
+cd "../../"
+echo ""
+# =================
+
+
+
+
+
 
 
 # stable_diffusion_repo
