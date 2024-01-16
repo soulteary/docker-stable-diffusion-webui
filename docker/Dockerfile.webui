@@ -38,7 +38,7 @@ RUN pip install lpips pydantic==1.10.11
 RUN pip install $(cat packages/stable-diffusion-webui/requirements.txt | sort | uniq | grep "\S" | grep -v basicsr | grep -v gfpgan | grep -v realesrgan)
 
 # finish webui install
-COPY ./build/prepare-sdwebui-components.sh /custom-build/build/prepare-sdwebui-components.sh
 WORKDIR /opt
-RUN bash build/prepare-sdwebui-components.sh
+COPY ./build/prepare-sdwebui-components.sh ./prepare-sdwebui-components.sh
+RUN bash prepare-sdwebui-components.sh && rm -rf prepare-sdwebui-components.sh
 CMD ["python", "launch.py", "--server-name", "0.0.0.0"]
