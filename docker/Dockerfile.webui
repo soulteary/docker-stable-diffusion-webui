@@ -1,0 +1,5 @@
+FROM soulteary/common-runtime:nvidia-23.12-xformers
+LABEL maintainer="soulteary@gmail.com"
+
+WORKDIR /custom-build
+COPY ./build /custom-build/build
