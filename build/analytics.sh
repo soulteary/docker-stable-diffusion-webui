@@ -60,15 +60,36 @@ echo ""
 # =================
 
 
-
-
-
-
-
 # stable_diffusion_repo
-echo "get stable_diffusion_repo info"
-info=$(cat ${DEPS_FILE} | grep ".get('STABLE_DIFFUSION_REPO'" | grep -oP "(?<=\").*(?=\")")
-echo $info
+# =================
+echo "[GET Info] stable_diffusion_repo"
+stable_diffusion_info=$(cat ${DEPS_FILE} | grep ".get('STABLE_DIFFUSION_REPO'" | grep -oP "(?<=\").*(?=\")")
+echo $stable_diffusion_info
+if [[ "${stable_diffusion_info}" != "${STABLE_DIFFUSION_REPO}" ]]; then
+    echo "stable_diffusion_info is not equal to STABLE_DIFFUSION_REPO, need upgrade."
+    echo "please report this issue to https://github.com/soulteary/docker-stable-diffusion-webui/"
+    exit 1
+fi
+stable_diffusion_commit_hash=$(cat ${DEPS_FILE} | grep ".get('STABLE_DIFFUSION_COMMIT_HASH'" | grep -oP "(?<=\").*(?=\")")
+if [[ "${stable_diffusion_commit_hash}" != "${STABLE_DIFFUSION_COMMIT_HASH}" ]]; then
+    echo "stable_diffusion_info is not equal to STABLE_DIFFUSION_COMMIT_HASH, need upgrade."
+    echo "please report this issue to https://github.com/soulteary/docker-stable-diffusion-webui/"
+    exit 1
+fi
+if [[ -d "${PACKAGES_DIR}/stablediffusion" ]]; then
+    echo "stable_diffusion_repo is already exist, skip clone."
+else
+    git clone "${STABLE_DIFFUSION_REPO}" "${PACKAGES_DIR}/stablediffusion"
+fi
+cd "${PACKAGES_DIR}/stablediffusion"
+git checkout "${stable_diffusion_commit_hash}"
+cd "../../"
+echo ""
+# =================
+
+
+
+
 
 stable_diffusion_commit_hash=$(cat ${DEPS_FILE} | grep ".get('STABLE_DIFFUSION_COMMIT_HASH'" | grep -oP "(?<=\").*(?=\")")
 echo $stable_diffusion_commit_hash
