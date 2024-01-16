@@ -1,0 +1,20 @@
+FROM nvcr.io/nvidia/pytorch:23.12-py3
+
+# set default shell
+SHELL ["/bin/bash", "-c"]
+
+# setup Ubuntu and PyPi mirrors
+ARG USE_CHINA_MIRROR=false
+
+# 根据USE_FLAG的值决定是否执行特定命令
+RUN if [ "$USE_CHINA_MIRROR" = "true" ]; then \
+        pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple && \
+        sed -i 's/security.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list && \
+        sed -i 's/archive.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list; \
+    fi
+
+# fix opencv & nvidia bugs. refs: 
+# - https://github.com/opencv/opencv-python/issues/884
+# - https://soulteary.com/2024/01/07/fix-opencv-dependency-errors-opencv-fixer.html
+RUN pip install opencv-fixer==0.2.5
+RUN python -c "from opencv_fixer import AutoFix; AutoFix()"
