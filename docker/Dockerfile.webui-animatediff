@@ -1,0 +1,6 @@
+FROM soulteary/common-runtime:webui
+LABEL maintainer="soulteary@gmail.com"
+
+# install animatediff deps
+RUN apt install gifsicle libimage-exiftool-perl -y
+RUN pip install imageio[pyav] PyExifTool pygifsicle boto3
