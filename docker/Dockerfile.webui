@@ -2,9 +2,9 @@ FROM soulteary/common-runtime:nvidia-23.12-xformers
 LABEL maintainer="soulteary@gmail.com"
 
 WORKDIR /custom-build
-COPY ./build /custom-build/build
 
 # fetch basic models
+COPY ./build/get-basic-models.sh /custom-build/build/get-basic-models.sh
 ARG USE_CHINA_MIRROR=false
 RUN if [ "$USE_CHINA_MIRROR" = "true" ]; then \
         USE_CHINA_MIRROR=true bash build/get-basic-models.sh; \
@@ -13,8 +13,9 @@ RUN if [ "$USE_CHINA_MIRROR" = "true" ]; then \
     fi
 
 # fetch origin deps
-RUN bash build/get-origin-deps.sh && \
-    bash build/prepare-packages.sh
+COPY ./build/get-origin-deps.sh /custom-build/build/get-origin-deps.sh
+COPY ./build/prepare-packages.sh /custom-build/build/prepare-packages.sh
+RUN bash build/get-origin-deps.sh && bash build/prepare-packages.sh
 
 # install clip, open_clip deps, remove protobuf old version lock
 RUN pip install $(cat packages/clip/requirements.txt packages/open_clip/requirements.txt packages/k-diffusion/requirements.txt | sort | uniq | grep "\S" | grep -v protobuf | grep -v "torch>=") && \
