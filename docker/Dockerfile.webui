@@ -3,3 +3,15 @@ LABEL maintainer="soulteary@gmail.com"
 
 WORKDIR /custom-build
 COPY ./build /custom-build/build
+
+# fetch basic models
+ARG USE_CHINA_MIRROR=false
+RUN if [ "$USE_CHINA_MIRROR" = "true" ]; then \
+        USE_CHINA_MIRROR=true bash build/get-basic-models.sh; \
+    else \
+        bash build/get-basic-models.sh; \
+    fi
+
+# fetch origin deps
+RUN bash build/get-origin-deps.sh && \
+    bash build/prepare-packages.sh
