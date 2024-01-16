@@ -145,10 +145,10 @@ echo ""
 
 
 # codeformer_repo
+# use pre-defined CODEFORMER_REPO, with minor bugfix.
 # =================
 echo "[GET Info] codeformer_repo"
 # codeformer_info=$(cat ${DEPS_FILE} | grep ".get('CODEFORMER_REPO'" | grep -oP "(?<=\').*(?=\')" | awk -F "', '" '{print $2}')
-# use pre-defined CODEFORMER_REPO, with minor bugfix
 # echo $codeformer_info
 # if [[ "${codeformer_info}" != "${CODEFORMER_REPO}" ]]; then
 #     echo "codeformer_info is not equal to CODEFORMER_REPO, need upgrade."
@@ -173,13 +173,32 @@ echo ""
 # =================
 
 
+# blip_repo
+# =================
+echo "[GET Info] blip_repo"
+blip_info=$(cat ${DEPS_FILE} | grep ".get('BLIP_REPO'" | grep -oP "(?<=\').*(?=\')" | awk -F "', '" '{print $2}')
+echo $blip_info
+if [[ "${blip_info}" != "${BLIP_REPO}" ]]; then
+    echo "blip_info is not equal to BLIP_REPO, need upgrade."
+    echo "please report this issue to https://github.com/soulteary/docker-stable-diffusion-webui/"
+    exit 1
+fi
+blip_commit_hash=$(cat ${DEPS_FILE} | grep ".get('BLIP_COMMIT_HASH'" | grep -oP "(?<=\").*(?=\")")
 
-# # blip_repo
-# echo "get blip_repo info"
-# info=$(cat ${DEPS_FILE} | grep ".get('BLIP_REPO'" | grep -oP "(?<=')[^']+(?=')")
-# echo $info
-
-
-# blip_commit_hash=$(cat ${DEPS_FILE} | grep ".get('BLIP_COMMIT_HASH'" | grep -oP "(?<=\").*(?=\")")
-# echo $blip_commit_hash
+blip_commit_hash=$(cat ${DEPS_FILE} | grep ".get('BLIP_COMMIT_HASH'" | grep -oP "(?<=\").*(?=\")")
+if [[ "${blip_commit_hash}" != "${BLIP_COMMIT_HASH}" ]]; then
+    echo "blip_info is not equal to BLIP_COMMIT_HASH, need upgrade."
+    echo "please report this issue to https://github.com/soulteary/docker-stable-diffusion-webui/"
+    exit 1
+fi
+if [[ -d "${PACKAGES_DIR}/BLIP" ]]; then
+    echo "blip_repo is already exist, skip clone."
+else
+    git clone "${BLIP_REPO}" "${PACKAGES_DIR}/BLIP"
+    cd "${PACKAGES_DIR}/BLIP"
+    git checkout "${blip_commit_hash}"
+    cd "../../"
+fi
+echo ""
+# =================
 
