@@ -34,3 +34,6 @@ sed -i 's#clip_version="openai/clip-vit-large-patch14"#clip_version="${SCRIPT_DI
 sed -i 's#version="openai/clip-vit-large-patch14"#version="${SCRIPT_DIR}/models/openai/clip-vit-large-patch14"#g' repositories/stable-diffusion-stability-ai/ldm/modules/encoders/modules.py
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 sed -i "s|\${SCRIPT_DIR}|${SCRIPT_DIR}|g" repositories/stable-diffusion-stability-ai/ldm/modules/encoders/modules.py
+# fix xformers version check
+XFORMERS_VERSION=$(pip show xformers | grep Version | awk '{print $2}')
+sed -i 's|"0.0.20"|"0.0.24+6600003.d20240116"|g' modules/errors.py
