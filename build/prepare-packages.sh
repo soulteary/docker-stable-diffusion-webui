@@ -192,8 +192,6 @@ if [[ "${blip_info}" != "${BLIP_REPO}" ]]; then
     exit 1
 fi
 blip_commit_hash=$(cat ${DEPS_FILE} | grep ".get('BLIP_COMMIT_HASH'" | grep -oP "(?<=\").*(?=\")")
-
-blip_commit_hash=$(cat ${DEPS_FILE} | grep ".get('BLIP_COMMIT_HASH'" | grep -oP "(?<=\").*(?=\")")
 if [[ "${blip_commit_hash}" != "${BLIP_COMMIT_HASH}" ]]; then
     echo "blip_info is not equal to BLIP_COMMIT_HASH, need upgrade."
     echo "please report this issue to https://github.com/soulteary/docker-stable-diffusion-webui/"
@@ -205,6 +203,21 @@ else
     git clone "${BLIP_REPO}" "${PACKAGES_DIR}/BLIP"
     cd "${PACKAGES_DIR}/BLIP"
     git checkout "${blip_commit_hash}"
+    cd "../../"
+fi
+echo ""
+# =================
+
+
+# AUTOMATIC1111/stable-diffusion-webui
+# =================
+echo "[GET Info] stable-diffusion-webui"
+if [[ -d "${PACKAGES_DIR}/stable-diffusion-webui" ]]; then
+    echo "stable-diffusion-webui is already exist, skip clone."
+else
+    git clone "${STABLE_DIFFUSION_WEBUI_REPO}" "${PACKAGES_DIR}/stable-diffusion-webui"
+    cd "${PACKAGES_DIR}/stable-diffusion-webui"
+    git checkout "${STABLE_DIFFUSION_WEBUI_COMMIT_HASH}"
     cd "../../"
 fi
 echo ""
