@@ -4,6 +4,7 @@ LABEL maintainer="soulteary@gmail.com"
 WORKDIR /custom-build
 
 # fetch basic models
+COPY ./build/common.sh /custom-build/build/common.sh
 COPY ./build/get-basic-models.sh /custom-build/build/get-basic-models.sh
 ARG USE_CHINA_MIRROR=false
 RUN if [ "$USE_CHINA_MIRROR" = "true" ]; then \
