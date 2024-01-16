@@ -1,12 +1,11 @@
 FROM nvcr.io/nvidia/pytorch:23.12-py3
+LABEL maintainer="soulteary@gmail.com"
 
 # set default shell
 SHELL ["/bin/bash", "-c"]
 
 # setup Ubuntu and PyPi mirrors
 ARG USE_CHINA_MIRROR=false
-
-# 根据USE_FLAG的值决定是否执行特定命令
 RUN if [ "$USE_CHINA_MIRROR" = "true" ]; then \
         pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple && \
         sed -i 's/security.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list && \

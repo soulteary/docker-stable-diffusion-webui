@@ -1,0 +1,22 @@
+# build xformers from source on nvidia docker image
+# refs:
+# - https://soulteary.com/2024/01/12/xformers-source-code-compilation-with-nvidia-docker.html
+# - https://github.com/facebookresearch/xformers/issues/960
+
+FROM soulteary/common-runtime:nvidia-23.12
+LABEL maintainer="soulteary@gmail.com"
+
+WORKDIR /custom-build
+
+# xformers
+ENV XFORMERS_GIT_COMMIT=6600003c2314af88befcec2cd6662957a662981d
+RUN git clone --recursive https://github.com/facebookresearch/xformers.git && cd xformers && \
+    git checkout ${XFORMERS_GIT_COMMIT}
+RUN git config --global --add safe.directory /custom-build/xformers && \
+    git config --global --add safe.directory /custom-build/xformers/third_party/flash-attention && \
+    git config --global --add safe.directory /custom-build/xformers/third_party/cutlass
+WORKDIR /custom-build/xformers
+RUN echo '' > requirements.txt
+RUN pip install ninja
+ARG MAX_JOBS=1
+RUN pip install -v -e .
