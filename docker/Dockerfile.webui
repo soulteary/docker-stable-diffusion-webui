@@ -42,4 +42,9 @@ WORKDIR /opt
 COPY ./build/prepare-sdwebui-components.sh ./prepare-sdwebui-components.sh
 RUN bash prepare-sdwebui-components.sh && rm -rf prepare-sdwebui-components.sh
 WORKDIR /opt/stable-diffusion-webui
+
+# skip webui lanuch git clone
+ENV SKIP_LAUNCH_GIT_CLONE=1
+ENV SKIP_LAUNCH_REQUIREMENT_MET=1
+
 CMD ["python", "launch.py", "--server-name", "0.0.0.0"]
