@@ -15,6 +15,7 @@ else
         mv "${MODELS_DIR}/Shanghai_AI_Laboratory/animatediff/v2_lora_*" "${MODELS_DIR}/guoyww/animatediff/"
         mv "${MODELS_DIR}/Shanghai_AI_Laboratory/animatediff/mm_sd_v15_v2.ckpt" "${MODELS_DIR}/guoyww/animatediff/"
         mv "${MODELS_DIR}/Shanghai_AI_Laboratory/animatediff/mm_sdxl_v10_beta.ckpt" "${MODELS_DIR}/guoyww/animatediff/"
+        rm -rf "${MODELS_DIR}/Shanghai_AI_Laboratory"
     else
         pip install huggingface_hub[cli]
         huggingface-cli download guoyww/animatediff mm_sd_v15_v2.ckpt --local-dir=./models/guoyww/animatediff --cache-dir=./cache --local-dir-use-symlinks=False --resume-download
