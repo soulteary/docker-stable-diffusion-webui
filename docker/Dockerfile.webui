@@ -1,10 +1,10 @@
-FROM soulteary/common-runtime:nvidia-23.12-xformers AS AppRuntime
+FROM soulteary/common-runtime:nvidia-23.12-xformers AS app-runtime
 LABEL maintainer="soulteary@gmail.com"
 WORKDIR /custom-build
 
 
 # fetch basic models
-FROM AppRuntime AS ModelFetcher
+FROM app-runtime AS model-fetcher
 COPY ./build/get-basic-models.sh /custom-build/build/get-basic-models.sh
 ARG USE_CHINA_MIRROR=false
 RUN if [ "$USE_CHINA_MIRROR" = "true" ]; then \
@@ -14,7 +14,7 @@ RUN if [ "$USE_CHINA_MIRROR" = "true" ]; then \
     fi
 
 # fetch origin deps
-FROM AppRuntime AS PyPiFetcher
+FROM app-runtime
 COPY ./build/common.sh ./build/get-origin-deps.sh ./build/prepare-packages.sh /custom-build/build/
 RUN bash build/get-origin-deps.sh && bash build/prepare-packages.sh
 
@@ -37,7 +37,7 @@ RUN pip install basicsr gfpgan realesrgan
 RUN pip install lpips pydantic==1.10.11
 RUN pip install $(cat packages/stable-diffusion-webui/requirements.txt | sort | uniq | grep "\S" | grep -v basicsr | grep -v gfpgan | grep -v realesrgan)
 
-COPY --from=ModelFetcher /custom-build/models /custom-build/models
+COPY --from=model-fetcher /custom-build/models /custom-build/models
 
 # finish webui install
 WORKDIR /opt
