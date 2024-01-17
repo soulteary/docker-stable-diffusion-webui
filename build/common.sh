@@ -4,7 +4,7 @@ TEMP_DIR=temp
 DEPS_FILE="./${TEMP_DIR}/launch_utils.py"
 
 # Sync with upstream repo
-CLIP_PACKAGE="https://github.com/openai/CLIP/archive/d50d76daa670286dd6cacf3bcd80b5e4823fc8e1.zip"
+CLIP_PACKAGE="https://github.com/openai/CLIP/archive/a1d071733d7111c9c014f024669f959182114e33.zip"
 CLIP_GITHUB="https://github.com/openai/CLIP.git"
 CLIP_COMMIT_HASH="a1d071733d7111c9c014f024669f959182114e33"
 
