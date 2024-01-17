@@ -1,5 +1,7 @@
 temp
 cache/*
 models/*
+!models/.gitkeep
 packages/*
+!packages/.gitkeep
 .DS_Store
