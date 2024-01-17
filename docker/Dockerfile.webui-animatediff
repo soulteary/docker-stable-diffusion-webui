@@ -6,9 +6,13 @@ RUN apt install gifsicle libimage-exiftool-perl -y
 RUN pip install imageio[pyav] PyExifTool pygifsicle boto3
 
 WORKDIR /opt/
-COPY get-animatediff-models.sh ./get-animatediff-models.sh
-RUN bash get-animatediff-models.sh && rm -rf get-animatediff-models.sh
+
+COPY ./packages/sd-webui-animatediff ./packages/sd-webui-animatediff
 COPY get-webui-animatediff.sh ./get-webui-animatediff.sh
 RUN bash get-webui-animatediff.sh && rm -rf get-webui-animatediff.sh
+
+COPY ./models/guoyww ./models/guoyww
+COPY get-animatediff-models.sh ./get-animatediff-models.sh
+RUN bash get-animatediff-models.sh && rm -rf get-animatediff-models.sh
 
 WORKDIR /opt/stable-diffusion-webui
