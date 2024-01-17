@@ -1,19 +1,9 @@
-FROM soulteary/common-runtime:nvidia-23.12-xformers
+FROM soulteary/common-runtime:nvidia-23.12-xformers AS runtime
 LABEL maintainer="soulteary@gmail.com"
-
 WORKDIR /custom-build
 
-# fetch basic models
-COPY ./models /custom-build/models
-COPY ./build/get-basic-models.sh /custom-build/build/get-basic-models.sh
-ARG USE_CHINA_MIRROR=false
-RUN if [ "$USE_CHINA_MIRROR" = "true" ]; then \
-        USE_CHINA_MIRROR=true bash build/get-basic-models.sh; \
-    else \
-        bash build/get-basic-models.sh; \
-    fi
-
 # fetch origin deps
+FROM runtime AS components
 COPY ./packages /custom-build/packages
 ADD ./build/common.sh ./build/get-origin-deps.sh ./build/prepare-packages.sh /custom-build/build/
 RUN bash build/get-origin-deps.sh && bash build/prepare-packages.sh
@@ -38,6 +28,16 @@ RUN pip install lpips pydantic==1.10.11
 RUN pip install $(cat packages/stable-diffusion-webui/requirements.txt | sort | uniq | grep "\S" | grep -v basicsr | grep -v gfpgan | grep -v realesrgan)
 
 # finish webui install
+FROM components AS webui
+# fetch basic models
+COPY ./models /custom-build/models
+COPY ./build/get-basic-models.sh /custom-build/build/get-basic-models.sh
+ARG USE_CHINA_MIRROR=false
+RUN if [ "$USE_CHINA_MIRROR" = "true" ]; then \
+        USE_CHINA_MIRROR=true bash build/get-basic-models.sh; \
+    else \
+        bash build/get-basic-models.sh; \
+    fi
 WORKDIR /opt
 COPY ./build/prepare-sdwebui-components.sh ./prepare-sdwebui-components.sh
 RUN bash prepare-sdwebui-components.sh && rm -rf prepare-sdwebui-components.sh
