@@ -1,10 +1,10 @@
-FROM soulteary/common-runtime:nvidia-23.12-xformers
+FROM soulteary/common-runtime:nvidia-23.12-xformers AS AppRuntime
 LABEL maintainer="soulteary@gmail.com"
-
 WORKDIR /custom-build
 
+
 # fetch basic models
-COPY ./build/common.sh /custom-build/build/common.sh
+FROM AppRuntime AS ModelFetcher
 COPY ./build/get-basic-models.sh /custom-build/build/get-basic-models.sh
 ARG USE_CHINA_MIRROR=false
 RUN if [ "$USE_CHINA_MIRROR" = "true" ]; then \
@@ -14,8 +14,8 @@ RUN if [ "$USE_CHINA_MIRROR" = "true" ]; then \
     fi
 
 # fetch origin deps
-COPY ./build/get-origin-deps.sh /custom-build/build/get-origin-deps.sh
-COPY ./build/prepare-packages.sh /custom-build/build/prepare-packages.sh
+FROM AppRuntime AS PyPiFetcher
+COPY ./build/common.sh ./build/get-origin-deps.sh ./build/prepare-packages.sh /custom-build/build/
 RUN bash build/get-origin-deps.sh && bash build/prepare-packages.sh
 
 # install clip, open_clip deps, remove protobuf old version lock
@@ -37,6 +37,8 @@ RUN pip install basicsr gfpgan realesrgan
 RUN pip install lpips pydantic==1.10.11
 RUN pip install $(cat packages/stable-diffusion-webui/requirements.txt | sort | uniq | grep "\S" | grep -v basicsr | grep -v gfpgan | grep -v realesrgan)
 
+COPY --from=ModelFetcher /custom-build/models /custom-build/models
+
 # finish webui install
 WORKDIR /opt
 COPY ./build/prepare-sdwebui-components.sh ./prepare-sdwebui-components.sh
@@ -47,4 +49,4 @@ WORKDIR /opt/stable-diffusion-webui
 ENV SKIP_LAUNCH_GIT_CLONE=1
 ENV SKIP_LAUNCH_REQUIREMENT_MET=1
 
-CMD ["python", "launch.py", "--server-name", "0.0.0.0"]
+CMD ["python", "launch.py"]
