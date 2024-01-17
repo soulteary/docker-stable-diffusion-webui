@@ -11,7 +11,7 @@ else
     if [ "$USE_CHINA_MIRROR" = "true" ]; then
         pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
         pip install modelscope
-        python -c "from modelscope import snapshot_download;snapshot_download('AI-ModelScope/clip-vit-large-patch14', cache_dir='./models/')"
+        python3 -c "from modelscope import snapshot_download;snapshot_download('AI-ModelScope/clip-vit-large-patch14', cache_dir='./models/')"
         mv "${MODELS_DIR}/AI-ModelScope" "${MODELS_DIR}/openai"
     else
         pip install huggingface_hub[cli]
