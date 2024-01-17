@@ -16,3 +16,7 @@ COPY ./build/get-animatediff-models.sh ./get-animatediff-models.sh
 RUN bash get-animatediff-models.sh && rm -rf get-animatediff-models.sh
 
 WORKDIR /opt/stable-diffusion-webui
+RUN mv ../packages/sd-webui-animatediff/ extensions/
+RUN mv ../models/guoyww/animatediff/mm_sd* extensions/sd-webui-animatediff/model/
+RUN mkdir -p models/Lora
+RUN mv ../models/guoyww/animatediff/v2_lora_* models/Lora/
