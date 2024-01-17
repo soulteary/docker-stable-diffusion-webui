@@ -12,3 +12,28 @@ Docker, Stable, Maintainable WebUI. Let WebUI **Flexible, efficient, reliable**,
 Build the Docker conatiner, [docs/build](./docs/build.md), [docs/offline](./docs/offline.md).
 
 And, Run it. [docs/run](./docs/run.md).
+
+## Credits
+
+
+### Infra
+
+- [Docker](https://www.docker.com/products/ai-ml-development/)
+  - Simplify and accelerate your AI/ML development workflows.
+- [Nvidia PyTorch Docker Images](https://catalog.ngc.nvidia.com/orgs/nvidia/containers/pytorch) [23.12-py3](#)
+  - A more efficient operating environment
+- [xFormers](https://github.com/facebookresearch/xformers) [#6600003|0.0.24+](https://github.com/facebookresearch/xformers/commit/6600003c2314af88befcec2cd6662957a662981d)
+  - Make programs run more efficiently
+
+TBD
+
+### Deps
+
+TBD
+
+### WebUI
+
+- [AUTOMATIC1111/stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui) v1.7.0
+  - WebUI Codebase, modification to better support container environments.
+- [continue-revolution/sd-webui-animatediff](https://github.com/continue-revolution/sd-webui-animatediff) v1.13.1
+  - A more economical and controllable video animation solution
