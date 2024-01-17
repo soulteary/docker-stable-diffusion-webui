@@ -181,16 +181,18 @@ echo ""
 # =================
 
 
-# AUTOMATIC1111/stable-diffusion-webui
+# soulteary/stable-diffusion-webui
+# - frok from AUTOMATIC1111/stable-diffusion-webui
 # =================
 echo "[GET Info] stable-diffusion-webui"
 if [[ -d "${PACKAGES_DIR}/stable-diffusion-webui" ]]; then
     echo "stable-diffusion-webui is already exist, skip clone."
 else
-    git clone "${STABLE_DIFFUSION_WEBUI_REPO}" "${PACKAGES_DIR}/stable-diffusion-webui"
-    cd "${PACKAGES_DIR}/stable-diffusion-webui"
-    git checkout "${STABLE_DIFFUSION_WEBUI_COMMIT_HASH}"
-    cd "../../"
+    # always use latest commit
+    git clone "${STABLE_DIFFUSION_WEBUI_REPO}" "${PACKAGES_DIR}/stable-diffusion-webui" --depth 1
+    # cd "${PACKAGES_DIR}/stable-diffusion-webui"
+    # git checkout "${STABLE_DIFFUSION_WEBUI_COMMIT_HASH}"
+    # cd "../../"
 fi
 echo ""
 # =================
