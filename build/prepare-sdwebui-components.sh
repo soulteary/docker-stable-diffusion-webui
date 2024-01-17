@@ -4,7 +4,7 @@ mv /custom-build/packages/stable-diffusion-webui/ .
 cd stable-diffusion-webui
 
 # setup webui components
-mv /custom-build/packages/ ./repositories
+cp -r /custom-build/packages/* ./repositories/
 mv ./repositories/stablediffusion "./repositories/stable-diffusion-stability-ai"
 
 # setup basic models
