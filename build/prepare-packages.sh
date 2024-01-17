@@ -193,7 +193,7 @@ else
     cd "${PACKAGES_DIR}/stable-diffusion-webui"
     git pull
     # git checkout "${STABLE_DIFFUSION_WEBUI_COMMIT_HASH}"
-    # cd "../../"
+    cd "../../"
 fi
 echo ""
 # =================
