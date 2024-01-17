@@ -187,13 +187,15 @@ echo ""
 echo "[GET Info] stable-diffusion-webui"
 if [[ -d "${PACKAGES_DIR}/stable-diffusion-webui" ]]; then
     echo "stable-diffusion-webui is already exist, skip clone."
+    cd "${PACKAGES_DIR}/stable-diffusion-webui"
+    git pull
+    cd "../../"
 else
     # always use latest commit
     git clone "${STABLE_DIFFUSION_WEBUI_REPO}" "${PACKAGES_DIR}/stable-diffusion-webui" --depth 1
-    cd "${PACKAGES_DIR}/stable-diffusion-webui"
-    git pull
+    # cd "${PACKAGES_DIR}/stable-diffusion-webui"
     # git checkout "${STABLE_DIFFUSION_WEBUI_COMMIT_HASH}"
-    cd "../../"
+    # cd "../../"
 fi
 echo ""
 # =================
