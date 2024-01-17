@@ -190,7 +190,8 @@ if [[ -d "${PACKAGES_DIR}/stable-diffusion-webui" ]]; then
 else
     # always use latest commit
     git clone "${STABLE_DIFFUSION_WEBUI_REPO}" "${PACKAGES_DIR}/stable-diffusion-webui" --depth 1
-    # cd "${PACKAGES_DIR}/stable-diffusion-webui"
+    cd "${PACKAGES_DIR}/stable-diffusion-webui"
+    git pull
     # git checkout "${STABLE_DIFFUSION_WEBUI_COMMIT_HASH}"
     # cd "../../"
 fi
