@@ -186,10 +186,13 @@ echo ""
 # =================
 echo "[GET Info] stable-diffusion-webui"
 if [[ -d "${PACKAGES_DIR}/stable-diffusion-webui" ]]; then
-    echo "stable-diffusion-webui is already exist, skip clone."
-    cd "${PACKAGES_DIR}/stable-diffusion-webui"
-    git pull
-    cd "../../"
+    if [ "$USE_CHINA_MIRROR" = "true" ]; then
+        echo "stable-diffusion-webui is already exist, skip clone."
+    else
+        cd "${PACKAGES_DIR}/stable-diffusion-webui"
+        git pull
+        cd "../../"
+    if
 else
     # always use latest commit
     git clone "${STABLE_DIFFUSION_WEBUI_REPO}" "${PACKAGES_DIR}/stable-diffusion-webui" --depth 1
