@@ -37,6 +37,8 @@ TBD
   - WebUI Codebase, modification to better support container environments.
 - [continue-revolution/sd-webui-animatediff](https://github.com/continue-revolution/sd-webui-animatediff) v1.13.1
   - A more economical and controllable video animation solution
+- [deforum-art/sd-webui-deforum](https://github.com/deforum-art/sd-webui-deforum)
+  - deforum-art community plugin.
 
 ### Models
 
