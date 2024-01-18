@@ -9,10 +9,15 @@ if [[ -d "${MODELS_DIR}/openai/clip-vit-large-patch14" ]]; then
 else
     echo "[GET Models] clip-vit-large-patch14"
     if [ "$USE_CHINA_MIRROR" = "true" ]; then
-        pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
-        pip install modelscope
-        python3 -c "from modelscope import snapshot_download;snapshot_download('AI-ModelScope/clip-vit-large-patch14', cache_dir='./models/')"
-        mv "${MODELS_DIR}/AI-ModelScope" "${MODELS_DIR}/openai"
+        mkdir -p "${MODELS_DIR}/openai/clip-vit-large-patch14"
+        curl -L -o "${MODELS_DIR}/openai/clip-vit-large-patch14/config.json"                "https://modelscope.cn/api/v1/models/AI-ModelScope/clip-vit-large-patch14/repo?Revision=master&FilePath=config.json"
+        curl -L -o "${MODELS_DIR}/openai/clip-vit-large-patch14/merges.txt"                 "https://modelscope.cn/api/v1/models/AI-ModelScope/clip-vit-large-patch14/repo?Revision=master&FilePath=merges.txt"
+        curl -L -o "${MODELS_DIR}/openai/clip-vit-large-patch14/preprocessor_config.json"   "https://modelscope.cn/api/v1/models/AI-ModelScope/clip-vit-large-patch14/repo?Revision=master&FilePath=preprocessor_config.json"
+        curl -L -o "${MODELS_DIR}/openai/clip-vit-large-patch14/pytorch_model.bin"          "https://modelscope.cn/api/v1/models/AI-ModelScope/clip-vit-large-patch14/repo?Revision=master&FilePath=pytorch_model.bin"
+        curl -L -o "${MODELS_DIR}/openai/clip-vit-large-patch14/special_tokens_map.json"    "https://modelscope.cn/api/v1/models/AI-ModelScope/clip-vit-large-patch14/repo?Revision=master&FilePath=special_tokens_map.json"
+        curl -L -o "${MODELS_DIR}/openai/clip-vit-large-patch14/tokenizer.json"             "https://modelscope.cn/api/v1/models/AI-ModelScope/clip-vit-large-patch14/repo?Revision=master&FilePath=tokenizer.json"
+        curl -L -o "${MODELS_DIR}/openai/clip-vit-large-patch14/tokenizer_config.json"      "https://modelscope.cn/api/v1/models/AI-ModelScope/clip-vit-large-patch14/repo?Revision=master&FilePath=tokenizer_config.json"
+        curl -L -o "${MODELS_DIR}/openai/clip-vit-large-patch14/vocab.json"                 "https://modelscope.cn/api/v1/models/AI-ModelScope/clip-vit-large-patch14/repo?Revision=master&FilePath=vocab.json"
     else
         pip install huggingface_hub[cli]
         huggingface-cli download openai/clip-vit-large-patch14 --local-dir=./models/openai/clip-vit-large-patch14 --cache-dir=./cache --local-dir-use-symlinks=False --resume-download
