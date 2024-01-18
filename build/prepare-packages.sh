@@ -192,7 +192,7 @@ if [[ -d "${PACKAGES_DIR}/stable-diffusion-webui" ]]; then
         cd "${PACKAGES_DIR}/stable-diffusion-webui"
         git pull
         cd "../../"
-    if
+    fi
 else
     # always use latest commit
     git clone "${STABLE_DIFFUSION_WEBUI_REPO}" "${PACKAGES_DIR}/stable-diffusion-webui" --depth 1
