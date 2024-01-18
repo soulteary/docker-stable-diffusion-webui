@@ -43,10 +43,10 @@ TBD
 - Shanghai AI Laboratory - AnimateDiff
   - [huggingface.co](https://huggingface.co/guoyww/animatediff) / [modelscope.cn](https://modelscope.cn/models/Shanghai_AI_Laboratory/animatediff) [3.2G]
 - OpenAI - Clip VIT large patch14
-  - [huggingface.co](https://huggingface.co/openai/clip-vit-large-patch14) / [modelscope.cn](https://modelscope.cn/models/AI-ModelScope/clip-vit-large-patch14)
+  - [huggingface.co](https://huggingface.co/openai/clip-vit-large-patch14) / [modelscope.cn](https://modelscope.cn/models/AI-ModelScope/clip-vit-large-patch14) [1.6G]
 - Google - T5 v1.1 large
   - [huggingface.co](https://huggingface.co/google/t5-v1_1-large) / [modelscope.cn](https://modelscope.cn/models/soulteary/t5-v1_1-large)
 - sczhou - CodeFormer
-  - [github.com](https://github.com/sczhou/CodeFormer) / [modelscope.cn](https://www.modelscope.cn/api/v1/models/soulteary/CodeFormer)
+  - [github.com](https://github.com/sczhou/CodeFormer) / [modelscope.cn](https://www.modelscope.cn/api/v1/models/soulteary/CodeFormer) [360M]
 - RunwayML - Stable Diffusion v1.5
-  - [huggingface.co](https://huggingface.co/runwayml/stable-diffusion-v1-5) / [modelscope.cn](https://modelscope.cn/api/v1/models/AI-ModelScope/stable-diffusion-v1-5)
+  - [huggingface.co](https://huggingface.co/runwayml/stable-diffusion-v1-5) / [modelscope.cn](https://modelscope.cn/api/v1/models/AI-ModelScope/stable-diffusion-v1-5) [4.0G]

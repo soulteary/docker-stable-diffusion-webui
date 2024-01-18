@@ -6,6 +6,7 @@ WORKDIR /custom-build
 FROM runtime AS components
 COPY ./packages /custom-build/packages
 ADD ./build/common.sh ./build/get-origin-deps.sh ./build/prepare-packages.sh /custom-build/build/
+ARG USE_CHINA_MIRROR=false
 RUN bash build/get-origin-deps.sh && bash build/prepare-packages.sh
 
 # install clip, open_clip deps, remove protobuf old version lock
