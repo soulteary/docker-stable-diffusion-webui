@@ -38,7 +38,9 @@ TBD
 - [continue-revolution/sd-webui-animatediff](https://github.com/continue-revolution/sd-webui-animatediff) v1.13.1
   - A more economical and controllable video animation solution
 - [deforum-art/sd-webui-deforum](https://github.com/deforum-art/sd-webui-deforum)
-  - deforum-art community plugin.
+  - Deforum Art community plugin.
+- [Mikubill/sd-webui-controlnet](https://github.com/Mikubill/sd-webui-controlnet)
+  - WebUI extension for ControlNet.
 
 ### Models
 
