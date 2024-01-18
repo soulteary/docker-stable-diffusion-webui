@@ -27,6 +27,29 @@ fi
 # -----------------
 
 
+# google/t5-v1_1-large
+if [[ -d "${MODELS_DIR}/google/t5-v1_1-large" ]]; then
+    echo "google/t5-v1_1-large is already exist, skip download."
+else
+    echo "[GET Models] google/t5-v1_1-large"
+    if [ "$USE_CHINA_MIRROR" = "true" ]; then
+        mkdir -p "${MODELS_DIR}/soulteary/t5-v1_1-large/"
+        curl -L -o "${MODELS_DIR}/soulteary/t5-v1_1-large/config.json"                "https://modelscope.cn/models/soulteary/t5-v1_1-large/repo?Revision=master&FilePath=config.json"
+        curl -L -o "${MODELS_DIR}/soulteary/t5-v1_1-large/preprocessor_config.json"   "https://modelscope.cn/models/soulteary/t5-v1_1-large/repo?Revision=master&FilePath=preprocessor_config.json"
+        curl -L -o "${MODELS_DIR}/soulteary/t5-v1_1-large/generation_config.json"     "https://modelscope.cn/models/soulteary/t5-v1_1-large/repo?Revision=master&FilePath=generation_config.json"
+        curl -L -o "${MODELS_DIR}/soulteary/t5-v1_1-large/pytorch_model.bin"          "https://modelscope.cn/models/soulteary/t5-v1_1-large/repo?Revision=master&FilePath=pytorch_model.bin"
+        curl -L -o "${MODELS_DIR}/soulteary/t5-v1_1-large/special_tokens_map.json"    "https://modelscope.cn/models/soulteary/t5-v1_1-large/repo?Revision=master&FilePath=special_tokens_map.json"
+        curl -L -o "${MODELS_DIR}/soulteary/t5-v1_1-large/tokenizer_config.json"      "https://modelscope.cn/models/soulteary/t5-v1_1-large/repo?Revision=master&FilePath=tokenizer_config.json"
+        curl -L -o "${MODELS_DIR}/soulteary/t5-v1_1-large/spiece.model"               "https://modelscope.cn/models/soulteary/t5-v1_1-large/repo?Revision=master&FilePath=spiece.model"
+    else
+        pip install huggingface_hub[cli]
+        huggingface-cli download google/t5-v1_1-large --local-dir=./models/google/t5-v1_1-large --cache-dir=./cache --local-dir-use-symlinks=False --resume-download
+    fi
+    echo ""
+fi
+# -----------------
+
+
 # CodeFormer/codeformer.pth
 if [[ -d "${MODELS_DIR}/CodeFormer" ]]; then
     echo "CodeFormer/codeformer.pth is already exist, skip download."
