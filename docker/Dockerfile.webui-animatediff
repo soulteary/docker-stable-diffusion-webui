@@ -37,8 +37,9 @@ RUN mv ../packages/sd-webui-deforum/ extensions/
 RUN pip install $(cat extensions/sd-webui-deforum/requirements.txt)
 RUN mkdir -p models/Deforum/film_interpolation
 RUN mv ../models/hithereai/frame-interpolation-pytorch/film_net_fp16.pt models/Deforum/film_interpolation/
+RUN sed -i 's/if not launch.is_installed(lib):/if False:/g' extensions/sd-webui-deforum/install.py
 
-# 
+# controlnet
 
 WORKDIR /opt
 RUN pip install insightface
@@ -49,4 +50,8 @@ WORKDIR /opt/stable-diffusion-webui
 RUN mv ../packages/sd-webui-controlnet/ extensions/
 RUN pip install $(cat extensions/sd-webui-controlnet/requirements.txt extensions/sd-webui-controlnet/annotator/hand_refiner_portable/requirements.txt)
 
-
+RUN sed -i 's/sync_submodules()/# sync_submodules()/g' extensions/sd-webui-controlnet/install.py
+RUN sed -i 's/install_requirements(main_req_file)/# install_requirements(main_req_file)/g' extensions/sd-webui-controlnet/install.py
+RUN sed -i 's/if os.path.exists(hand_refiner_req_file):/# if os.path.exists(hand_refiner_req_file):/g' extensions/sd-webui-controlnet/install.py
+RUN sed -i 's/    install_requirements(hand_refiner_req_file)/#    install_requirements(hand_refiner_req_file)/g' extensions/sd-webui-controlnet/install.py
+RUN sed -i 's/try_install_insight_face()/# try_install_insight_face()/g' extensions/sd-webui-controlnet/install.py
