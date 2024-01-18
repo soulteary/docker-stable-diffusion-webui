@@ -44,6 +44,13 @@ RUN sed -i 's/if not launch.is_installed(lib):/if False:/g' extensions/sd-webui-
 
 WORKDIR /opt
 RUN pip install insightface
+COPY ./models/lllyasviel/ControlNet ./models/lllyasviel/ControlNet
+COPY ./models/LayerNorm/DensePose-TorchScript-with-hint-image
+COPY ./models/lllyasviel/Annotators ./models/lllyasviel/Annotators
+COPY ./models/yzd-v/DWPose ./models/yzd-v/DWPose
+COPY ./models/bdsqlsz/qinglong_controlnet-lllite ./models/bdsqlsz/qinglong_controlnet-lllite
+COPY ./models/openai/clip-vit-large-patch14 ./models/openai/clip-vit-large-patch14
+COPY ./models/h94/IP-Adapter ./models/h94/IP-Adapter
 COPY ./packages/sd-webui-controlnet ./packages/sd-webui-controlnet
 COPY ./build/get-webui-controlnet.sh ./get-webui-controlnet.sh
 RUN bash get-webui-controlnet.sh && rm -rf get-webui-controlnet.sh
