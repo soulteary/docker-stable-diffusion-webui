@@ -54,3 +54,9 @@ TBD
   - [github.com](https://github.com/sczhou/CodeFormer) / [modelscope.cn](https://www.modelscope.cn/api/v1/models/soulteary/CodeFormer) [360M]
 - RunwayML - Stable Diffusion v1.5
   - [huggingface.co](https://huggingface.co/runwayml/stable-diffusion-v1-5) / [modelscope.cn](https://modelscope.cn/api/v1/models/AI-ModelScope/stable-diffusion-v1-5) [4.0G]
+- lllyasviel - Annotators
+  - [huggingface.co](https://huggingface.co/lllyasviel/Annotators) / [modelscope.cn](https://modelscope.cn/models/soulteary/controlnet-annotators/)
+- yzd-v - DWPose
+  - [huggingface.co](https://huggingface.co/yzd-v/DWPose) / [modelscope.cn](https://modelscope.cn/models/soulteary/sd-web-deps/)
+- h94/IP-Adapter
+  - [huggingface.co](https://huggingface.co/h94/IP-Adapter) / [modelscope.cn](https://modelscope.cn/models/soulteary/h94-IP-Adapter/summary)

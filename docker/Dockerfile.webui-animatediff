@@ -31,6 +31,7 @@ RUN bash get-webui-deforum.sh && rm -rf get-webui-deforum.sh
 
 COPY ./models/hithereai ./models/hithereai
 COPY ./build/get-deforum-models.sh ./get-deforum-models.sh
+ARG USE_CHINA_MIRROR=false
 RUN bash get-deforum-models.sh && rm -rf get-deforum-models.sh
 WORKDIR /opt/stable-diffusion-webui
 RUN mv ../packages/sd-webui-deforum/ extensions/
@@ -50,6 +51,7 @@ WORKDIR /opt/stable-diffusion-webui
 RUN mv ../packages/sd-webui-controlnet/ extensions/
 RUN pip install $(cat extensions/sd-webui-controlnet/requirements.txt extensions/sd-webui-controlnet/annotator/hand_refiner_portable/requirements.txt)
 COPY build/get-controlnet-models.sh ./get-controlnet-models.sh
+ARG USE_CHINA_MIRROR=false
 RUN bash get-controlnet-models.sh && rm -rf get-controlnet-models.sh
 RUN sed -i 's/^sync_submodules()/# sync_submodules()/g' extensions/sd-webui-controlnet/install.py
 RUN sed -i 's/^install_requirements(main_req_file)/# install_requirements(main_req_file)/g' extensions/sd-webui-controlnet/install.py
