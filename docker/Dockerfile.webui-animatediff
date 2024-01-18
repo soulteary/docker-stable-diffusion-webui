@@ -29,7 +29,7 @@ COPY ./packages/sd-webui-deforum ./packages/sd-webui-deforum
 COPY ./build/get-webui-deforum.sh ./get-webui-deforum.sh
 RUN bash get-webui-deforum.sh && rm -rf get-webui-deforum.sh
 
-COPY ./models/deforum-art ./models/deforum-art
+COPY ./models/hithereai ./models/hithereai
 COPY ./build/get-deforum-models.sh ./get-deforum-models.sh
 RUN bash get-deforum-models.sh && rm -rf get-deforum-models.sh
 WORKDIR /opt/stable-diffusion-webui
